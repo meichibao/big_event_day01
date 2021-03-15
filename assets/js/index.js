@@ -52,6 +52,7 @@ function renderAvatar(user) {
         $(".layui-nav-img").hide();
         //取出名字的第一个字母,转换成大写,成文本头像
         $(".text-avatar").show().html(name[0].toUpperCase());
+        $("#welcome").html('欢迎 &nbsp;&nbsp;' + name);
     }
 
 
