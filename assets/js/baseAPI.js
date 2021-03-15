@@ -9,5 +9,30 @@ $(function () {
 
     $.ajaxPrefilter(function (options) {
         options.url = baseURL + options.url;
-    })
+
+
+        if (options.url.indexOf('/my/') !== -1) {
+            options.headers = {
+                Authorization: localStorage.getItem('tokens') || ''
+            }
+        }
+
+
+
+        // 登录拦截
+        options.complete = function (res) {
+            console.log(res);
+
+            const obj = res.responseJSON;
+            // console.log(obj);
+            if (obj.status === 1 && obj.message === '身份认证失败！') {
+                localStorage.removeItem('tokens');
+                location.href = '/login.html';
+            }
+
+
+        }
+    });
+
+    //添加完功能记得添加到笔记
 })
